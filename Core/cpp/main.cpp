@@ -9,6 +9,7 @@
 
 void main_cpp(void){
 	// User C++ code
+	printf("Bonjour");
 
 	while(1) {
 		__NOP();
