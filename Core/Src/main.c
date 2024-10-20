@@ -22,6 +22,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "stm32l1xx_it.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -40,6 +42,9 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+SPI_HandleTypeDef hspi1;
+
+UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
@@ -48,16 +53,122 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-int __io_putchar(int ch){
-	ITM_SendChar(ch);
-	return ch;
+
+
+void code_bon(uint32_t MyDelay){
+	MAX7219_Clear();
+	HAL_Delay(100);
+	MAX7219_DisplayChar(4,'C');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(3,'C');
+	MAX7219_DisplayChar(4,'O');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(2,'C');
+	MAX7219_DisplayChar(3,'O');
+	MAX7219_DisplayChar(4,'D');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'C');
+	MAX7219_DisplayChar(2,'O');
+	MAX7219_DisplayChar(3,'D');
+	MAX7219_DisplayChar(4,'E');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'O');
+	MAX7219_DisplayChar(2,'D');
+	MAX7219_DisplayChar(3,'E');
+
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'D');
+	MAX7219_DisplayChar(2,'E');
+	MAX7219_DisplayChar(4,'B');
+
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'E');
+	MAX7219_DisplayChar(3,'B');
+	MAX7219_DisplayChar(4,'O');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(2,'B');
+	MAX7219_DisplayChar(3,'O');
+	MAX7219_DisplayChar(4,'N');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'B');
+	MAX7219_DisplayChar(2,'O');
+	MAX7219_DisplayChar(3,'N');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'O');
+	MAX7219_DisplayChar(2,'N');
+
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'N');
+
+	HAL_Delay(MyDelay);
 }
+
+
+void code_faux(){
+	MAX7219_Clear();
+	HAL_Delay(100);
+	MAX7219_DisplayChar(1,'N');
+	MAX7219_Clear();
+	HAL_Delay(100);
+	MAX7219_DisplayChar(2,'O');
+	MAX7219_Clear();
+	HAL_Delay(100);
+	MAX7219_DisplayChar(3,'N');
+}
+
+void affiche_1(uint_t pos){
+	MAX7219_Clear();
+	HAL_Delay(100);
+	MAX7219_DisplayChar(pos,'1');
+}
+
+void affiche_2(uint_t pos){
+	MAX7219_Clear();
+	HAL_Delay(100);
+	MAX7219_DisplayChar(pos,'2');
+}
+
+void affiche_3(uint_t pos){
+	MAX7219_Clear();
+	HAL_Delay(100);
+	MAX7219_DisplayChar(pos,'3');
+}
+
+void affiche_4(uint_t pos){
+	MAX7219_Clear();
+	HAL_Delay(100);
+	MAX7219_DisplayChar(pos,'4');
+}
+
+
 /* USER CODE END 0 */
 
 /**
@@ -89,15 +200,26 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_USART2_UART_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  printf("Bonjouuuur\r\n");
-  main_cpp();
+
+
+	 MAX7219_Init();
+	 MAX7219_DisplayTestStart();
+	 HAL_Delay(2000);
+	 MAX7219_DisplayTestStop();
+	 main_cpp();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  //code_ok(500);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -126,8 +248,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL4;
-  RCC_OscInitStruct.PLL.PLLDIV = RCC_PLL_DIV2;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
+  RCC_OscInitStruct.PLL.PLLDIV = RCC_PLL_DIV3;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -149,17 +271,102 @@ void SystemClock_Config(void)
 }
 
 /**
+  * @brief SPI1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI1_Init(void)
+{
+
+  /* USER CODE BEGIN SPI1_Init 0 */
+
+  /* USER CODE END SPI1_Init 0 */
+
+  /* USER CODE BEGIN SPI1_Init 1 */
+
+  /* USER CODE END SPI1_Init 1 */
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI1_Init 2 */
+
+  /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 /* USER CODE BEGIN MX_GPIO_Init_1 */
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(SPI_CS_GPIO_Port, SPI_CS_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : SPI_CS_Pin */
+  GPIO_InitStruct.Pin = SPI_CS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SPI_CS_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

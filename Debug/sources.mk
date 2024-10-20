@@ -42,4 +42,5 @@ Core/Src \
 Core/Startup \
 Core/cpp \
 Drivers/STM32L1xx_HAL_Driver/Src \
+Drivers/display \
 
