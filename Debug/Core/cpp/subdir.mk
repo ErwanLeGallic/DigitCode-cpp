@@ -6,16 +6,19 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../Core/cpp/Buzzer.cpp \
+../Core/cpp/Moteur.cpp \
 ../Core/cpp/Peripherique.cpp \
 ../Core/cpp/main.cpp 
 
 OBJS += \
 ./Core/cpp/Buzzer.o \
+./Core/cpp/Moteur.o \
 ./Core/cpp/Peripherique.o \
 ./Core/cpp/main.o 
 
 CPP_DEPS += \
 ./Core/cpp/Buzzer.d \
+./Core/cpp/Moteur.d \
 ./Core/cpp/Peripherique.d \
 ./Core/cpp/main.d 
 
@@ -27,7 +30,7 @@ Core/cpp/%.o Core/cpp/%.su Core/cpp/%.cyclo: ../Core/cpp/%.cpp Core/cpp/subdir.m
 clean: clean-Core-2f-cpp
 
 clean-Core-2f-cpp:
-	-$(RM) ./Core/cpp/Buzzer.cyclo ./Core/cpp/Buzzer.d ./Core/cpp/Buzzer.o ./Core/cpp/Buzzer.su ./Core/cpp/Peripherique.cyclo ./Core/cpp/Peripherique.d ./Core/cpp/Peripherique.o ./Core/cpp/Peripherique.su ./Core/cpp/main.cyclo ./Core/cpp/main.d ./Core/cpp/main.o ./Core/cpp/main.su
+	-$(RM) ./Core/cpp/Buzzer.cyclo ./Core/cpp/Buzzer.d ./Core/cpp/Buzzer.o ./Core/cpp/Buzzer.su ./Core/cpp/Moteur.cyclo ./Core/cpp/Moteur.d ./Core/cpp/Moteur.o ./Core/cpp/Moteur.su ./Core/cpp/Peripherique.cyclo ./Core/cpp/Peripherique.d ./Core/cpp/Peripherique.o ./Core/cpp/Peripherique.su ./Core/cpp/main.cyclo ./Core/cpp/main.d ./Core/cpp/main.o ./Core/cpp/main.su
 
 .PHONY: clean-Core-2f-cpp
 

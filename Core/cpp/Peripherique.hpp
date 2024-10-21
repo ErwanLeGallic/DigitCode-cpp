@@ -1,26 +1,23 @@
 #ifndef PERIPHERIQUE_HPP
 #define PERIPHERIQUE_HPP
 
-
+enum State {
+	OFF, ON
+};
 
 class Peripherique {
 public:
-    enum class State {
-        OFF,
-        ON
-    };
 
-    Peripherique();
+	Peripherique();
 
-    virtual void Power();
+	virtual void Power();
 
-    void SetState(State state);
+	void SetState(State state);
 
-
-    State GetState() const;
+	State GetState();
 
 protected:
-    State state;
+	State state = OFF;
 };
 
 #endif // PERIPHERIQUE_HPP

@@ -16,7 +16,7 @@ typedef struct{
 extern TypeDef_Note notes[];
 extern const char* buzzer_partition[];
 extern TIM_HandleTypeDef htim3;
-
+void play_buzzer_partition();
 void buzzer_play_note_by_name(TIM_HandleTypeDef *_htim, TypeDef_Note *_note, size_t _notes_sz, const char* _name);
 void buzzer_mute(TIM_HandleTypeDef *_htim);
 void buzzer_play_note(TIM_HandleTypeDef *_htim, TypeDef_Note *_note);
