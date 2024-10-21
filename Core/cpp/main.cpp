@@ -20,7 +20,7 @@ void main_cpp(void){
 	// User C++ code
 
 
-	code_bon(300);
+	//code_bon(300);
 	std::cout << "Entrez votre nouveau mot de passe : " <<std::endl;
 	std::cin >> new_psw;
 	if (sizeof(new_psw)==4){
@@ -33,7 +33,7 @@ void main_cpp(void){
 }
 
 	while(1) {
-		code_bon(300);
+		//aff_message("non", 300);
 	}
 }
 

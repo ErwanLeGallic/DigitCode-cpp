@@ -61,7 +61,9 @@ static void MX_SPI1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint32_t flag_btn=0;
+uint32_t btn_trig=0;
+uint32_t pos = 0;
 
 void code_bon(uint32_t MyDelay){
 	MAX7219_Clear();
@@ -91,14 +93,12 @@ void code_bon(uint32_t MyDelay){
 	MAX7219_DisplayChar(1,'O');
 	MAX7219_DisplayChar(2,'D');
 	MAX7219_DisplayChar(3,'E');
-
 	HAL_Delay(MyDelay);
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1,'D');
 	MAX7219_DisplayChar(2,'E');
 	MAX7219_DisplayChar(4,'B');
-
 	HAL_Delay(MyDelay);
 
 	MAX7219_Clear();
@@ -122,19 +122,152 @@ void code_bon(uint32_t MyDelay){
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1,'O');
 	MAX7219_DisplayChar(2,'N');
-
 	HAL_Delay(MyDelay);
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1,'N');
-
 	HAL_Delay(MyDelay);
+	MAX7219_Clear();
+
+}
+/*
+void aff_message(char mot, uint32_t MyDelay){
+	size_t len_mot;
+	len_mot = strlen(mot);
+	for (char i; i <= len_mot; i++){
+		for (uint32_t digit; digit <=4; digit++){
+			char lettre = mot[i];
+			if (lettre=' '){
+				MAX7219_Clear();
+				HAL_Delay(MyDelay);
+			}
+			MAX7219_Clear();
+			MAX7219_DisplayChar(digit,lettre);
+			HAL_Delay(MyDelay);
+		}
+	}
+}
+*/
+
+void ask_code(uint32_t MyDelay){
+	MAX7219_Clear();
+	HAL_Delay(100);
+	MAX7219_DisplayChar(4,'E');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(3,'E');
+	MAX7219_DisplayChar(4,'N');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(2,'E');
+	MAX7219_DisplayChar(3,'N');
+	MAX7219_DisplayChar(4,'T');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'E');
+	MAX7219_DisplayChar(2,'N');
+	MAX7219_DisplayChar(3,'T');
+	MAX7219_DisplayChar(4,'R');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'N');
+	MAX7219_DisplayChar(2,'T');
+	MAX7219_DisplayChar(3,'R');
+	MAX7219_DisplayChar(4,'E');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'T');
+	MAX7219_DisplayChar(2,'R');
+	MAX7219_DisplayChar(3,'E');
+	MAX7219_DisplayChar(4,'R');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'R');
+	MAX7219_DisplayChar(2,'E');
+	MAX7219_DisplayChar(3,'R');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'E');
+	MAX7219_DisplayChar(2,'R');
+	MAX7219_DisplayChar(4,'C');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'R');
+	MAX7219_DisplayChar(3,'C');
+	MAX7219_DisplayChar(4,'O');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(2,'C');
+	MAX7219_DisplayChar(3,'O');
+	MAX7219_DisplayChar(4,'D');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'C');
+	MAX7219_DisplayChar(2,'O');
+	MAX7219_DisplayChar(3,'D');
+	MAX7219_DisplayChar(4,'E');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'O');
+	MAX7219_DisplayChar(2,'D');
+	MAX7219_DisplayChar(3,'E');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'D');
+	MAX7219_DisplayChar(2,'E');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	MAX7219_DisplayChar(1,'E');
+	HAL_Delay(MyDelay);
+
+	MAX7219_Clear();
+	HAL_Delay(MyDelay);
+
 }
 
-void aff_message(char mot){
-	for (char i, i <= strlen(mot)){
+void code(){
+	  HAL_Delay(500);
 
-	}
+	  if ( btn_trig==1 && pos <=4){
+		  if(flag_btn == 1){
+			  pos++;
+			  affiche_1(pos);
+			  btn_trig=0;
+		  }
+		  else if (flag_btn == 2){
+			  pos++;
+			  affiche_2(pos);
+			  btn_trig=0;
+		  }
+		  else if (flag_btn == 3){
+			  pos++;
+			  affiche_3(pos);
+			  btn_trig=0;
+		  }
+		  else if (flag_btn == 4){
+			  pos++;
+			  affiche_4(pos);
+			  btn_trig=0;
+		  }
+
+		  HAL_Delay(250);
+	  }
+	  else if (pos == 4){
+
+	  }
 }
 
 void code_faux(){
@@ -150,26 +283,18 @@ void code_faux(){
 }
 
 void affiche_1(uint32_t pos){
-	MAX7219_Clear();
-	HAL_Delay(100);
 	MAX7219_DisplayChar(pos,'1');
 }
 
 void affiche_2(uint32_t pos){
-	MAX7219_Clear();
-	HAL_Delay(100);
 	MAX7219_DisplayChar(pos,'2');
 }
 
 void affiche_3(uint32_t pos){
-	MAX7219_Clear();
-	HAL_Delay(100);
 	MAX7219_DisplayChar(pos,'3');
 }
 
 void affiche_4(uint32_t pos){
-	MAX7219_Clear();
-	HAL_Delay(100);
 	MAX7219_DisplayChar(pos,'4');
 }
 
@@ -214,7 +339,11 @@ int main(void)
 	 MAX7219_DisplayTestStart();
 	 HAL_Delay(2000);
 	 MAX7219_DisplayTestStop();
-	 main_cpp();
+	MAX7219_Clear();
+
+	 //main_cpp();
+	//aff_message("non", 300);
+
 
   /* USER CODE END 2 */
 
@@ -223,7 +352,13 @@ int main(void)
   while (1)
   {
 
+
+
+
+
 	  //code_ok(500);
+	  //ask_code(300);
+
 
     /* USER CODE END WHILE */
 
@@ -366,6 +501,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(SPI_CS_GPIO_Port, SPI_CS_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pins : btn4_Pin btn3_Pin */
+  GPIO_InitStruct.Pin = btn4_Pin|btn3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
   /*Configure GPIO pin : SPI_CS_Pin */
   GPIO_InitStruct.Pin = SPI_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -373,12 +514,45 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(SPI_CS_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : btn1_Pin btn2_Pin */
+  GPIO_InitStruct.Pin = btn1_Pin|btn2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == btn1_Pin) {
+	  flag_btn=1;
+	  btn_trig=1;
+  }
+  else if(GPIO_Pin == btn2_Pin) {
+	  flag_btn=2;
+	  btn_trig=1;
 
+  }
+  else if(GPIO_Pin == btn3_Pin) {
+	  flag_btn=3;
+	  btn_trig=1;
+
+  }
+  else if(GPIO_Pin == btn4_Pin) {
+	  flag_btn=4;
+	  btn_trig=1;
+  }
+}
 /* USER CODE END 4 */
 
 /**
