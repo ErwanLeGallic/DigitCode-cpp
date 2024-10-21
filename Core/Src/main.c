@@ -131,6 +131,11 @@ void code_bon(uint32_t MyDelay){
 	HAL_Delay(MyDelay);
 }
 
+void aff_message(char mot){
+	for (char i, i <= strlen(mot)){
+
+	}
+}
 
 void code_faux(){
 	MAX7219_Clear();
@@ -144,25 +149,25 @@ void code_faux(){
 	MAX7219_DisplayChar(3,'N');
 }
 
-void affiche_1(uint_t pos){
+void affiche_1(uint32_t pos){
 	MAX7219_Clear();
 	HAL_Delay(100);
 	MAX7219_DisplayChar(pos,'1');
 }
 
-void affiche_2(uint_t pos){
+void affiche_2(uint32_t pos){
 	MAX7219_Clear();
 	HAL_Delay(100);
 	MAX7219_DisplayChar(pos,'2');
 }
 
-void affiche_3(uint_t pos){
+void affiche_3(uint32_t pos){
 	MAX7219_Clear();
 	HAL_Delay(100);
 	MAX7219_DisplayChar(pos,'3');
 }
 
-void affiche_4(uint_t pos){
+void affiche_4(uint32_t pos){
 	MAX7219_Clear();
 	HAL_Delay(100);
 	MAX7219_DisplayChar(pos,'4');

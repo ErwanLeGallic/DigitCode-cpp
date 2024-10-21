@@ -78,7 +78,12 @@ void Error_Handler(void);
 #define SWO_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-void code_ok(uint32_t MyDelay);
+void code_bon(uint32_t MyDelay);
+void code_faux();
+void affiche_1(uint32_t pos);
+void affiche_2(uint32_t pos);
+void affiche_3(uint32_t pos);
+void affiche_4(uint32_t pos);
 
 /* USER CODE END Private defines */
 
