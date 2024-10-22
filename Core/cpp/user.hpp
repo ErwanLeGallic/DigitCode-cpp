@@ -35,9 +35,9 @@ public:
 
     // Destructeur
     ~User();
-
     // Méthodes
     char* code();
+private:
     //void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
     void affiche_1(int pos);
     void affiche_2(int pos);

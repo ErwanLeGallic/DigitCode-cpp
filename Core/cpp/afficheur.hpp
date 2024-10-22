@@ -25,7 +25,6 @@ class Afficheur{
     ~Afficheur();
 
 
-
 	// methodes
 	void code_bon(uint32_t MyDelay);
 	void ask_code(uint32_t MyDelay);
