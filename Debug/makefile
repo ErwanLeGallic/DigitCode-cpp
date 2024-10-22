@@ -10,6 +10,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Drivers/STM32L1xx_HAL_Driver/Src/subdir.mk
+-include Core/cpp/Display/subdir.mk
 -include Core/cpp/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
@@ -59,34 +60,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := cpp_template
+BUILD_ARTIFACT_NAME := DigitCode-cpp
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-cpp_template.elf \
+DigitCode-cpp.elf \
 
 MAP_FILES += \
-cpp_template.map \
+DigitCode-cpp.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-cpp_template.list \
+DigitCode-cpp.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: cpp_template.elf secondary-outputs
+main-build: DigitCode-cpp.elf secondary-outputs
 
 # Tool invocations
-cpp_template.elf cpp_template.map: $(OBJS) $(USER_OBJS) C:\git\cpp_template\STM32L152RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "cpp_template.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\git\cpp_template\STM32L152RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cpp_template.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+DigitCode-cpp.elf DigitCode-cpp.map: $(OBJS) $(USER_OBJS) C:\Users\Acer\ Nitro\ RTX\Desktop\ISEN\S09\stm32_cpp\DigitCode-cpp\STM32L152RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "DigitCode-cpp.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Acer Nitro RTX\Desktop\ISEN\S09\stm32_cpp\DigitCode-cpp\STM32L152RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DigitCode-cpp.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -95,14 +96,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-cpp_template.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "cpp_template.list"
+DigitCode-cpp.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "DigitCode-cpp.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) cpp_template.elf cpp_template.list cpp_template.map default.size.stdout
+	-$(RM) DigitCode-cpp.elf DigitCode-cpp.list DigitCode-cpp.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

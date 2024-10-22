@@ -13,6 +13,9 @@ extern "C" {
 #endif
 /* BEGIN USER CODE C DEFINITIONS */
 #include "stm32l1xx_hal.h"
+#include "user.hpp"
+#include "afficheur.hpp"
+
 void main_cpp();
 /* END USER CODE C DEFINITIONS */
 #ifdef __cplusplus
