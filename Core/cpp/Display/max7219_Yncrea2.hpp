@@ -1,12 +1,12 @@
 /*
- * max7219_Yncrea2.h
+ * max7219_Yncrea2.hpp
  *
  *  Created on: Apr 22, 2020
  *      Author: ThibautDELERUYELLE
  */
 
-#ifndef MAX7219_YNCREA2_H_
-#define MAX7219_YNCREA2_H_
+#ifndef MAX7219_YNCREA2_HPP_
+#define MAX7219_YNCREA2_HPP_
 
 void MAX7219_Init(void);
 void MAX7219_ShutdownStart(void);
@@ -21,4 +21,4 @@ void MAX7219_DisplayChar(char digit, char character);
  void SPI_CS_High();
  void SPI_CS_Low();
 
-#endif /* MAX7219_YNCREA2_H_ */
+#endif /* MAX7219_YNCREA2_HPP_ */

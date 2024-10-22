@@ -31,7 +31,6 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <main.hpp>
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -54,7 +53,8 @@ extern SPI_HandleTypeDef hspi1;
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+extern int flag_btn; // Déclaration externe, pas d'initialisation
+extern int btn_trig;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -90,6 +90,7 @@ void Error_Handler(void);
 #define SWO_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+/*
 void aff_message(char mot, uint32_t MyDelay);
 void ask_code(uint32_t MyDelay);
 void code_bon(uint32_t MyDelay);
@@ -98,11 +99,13 @@ void affiche_1(uint32_t pos);
 void affiche_2(uint32_t pos);
 void affiche_3(uint32_t pos);
 void affiche_4(uint32_t pos);
-
+char* code();
+*/
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
 }
 #endif
+#include <main.hpp>
 
 #endif /* __MAIN_H */

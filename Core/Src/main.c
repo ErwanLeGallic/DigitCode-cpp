@@ -17,12 +17,16 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <main.hpp>
+#include <max7219_Yncrea2.hpp>
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "stm32l1xx_it.h"
+#include <string.h>
+
 
 /* USER CODE END Includes */
 
@@ -56,14 +60,25 @@ static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
-
+int __io_putchar(int ch) {
+	ITM_SendChar(ch);
+	return ch;
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint32_t flag_btn=0;
-uint32_t btn_trig=0;
+
+
+int flag_btn=0;
+int btn_trig=0;
+/*
 uint32_t pos = 0;
+
+char root_code[4];
+char user_code[4];
+char final_code[4];
+
 
 void code_bon(uint32_t MyDelay){
 	MAX7219_Clear();
@@ -131,24 +146,23 @@ void code_bon(uint32_t MyDelay){
 
 }
 /*
-void aff_message(char mot, uint32_t MyDelay){
-	size_t len_mot;
-	len_mot = strlen(mot);
-	for (char i; i <= len_mot; i++){
-		for (uint32_t digit; digit <=4; digit++){
-			char lettre = mot[i];
-			if (lettre=' '){
-				MAX7219_Clear();
-				HAL_Delay(MyDelay);
-			}
-			MAX7219_Clear();
-			MAX7219_DisplayChar(digit,lettre);
-			HAL_Delay(MyDelay);
-		}
-	}
+void aff_message(const char* mot, uint32_t MyDelay) {
+    size_t len_mot = strlen(mot);
+    for (size_t i = 0; i < len_mot; i++) {
+        char lettre = mot[i];
+        if (lettre == ' ') {
+            MAX7219_Clear();
+            HAL_Delay(MyDelay);
+        } else {
+            MAX7219_Clear();
+            MAX7219_DisplayChar(4, lettre); // Utilisation d'une position fixe ici
+            HAL_Delay(MyDelay);
+        }
+    }
 }
 */
 
+/*
 void ask_code(uint32_t MyDelay){
 	MAX7219_Clear();
 	HAL_Delay(100);
@@ -237,67 +251,65 @@ void ask_code(uint32_t MyDelay){
 	HAL_Delay(MyDelay);
 
 }
-
-void code(){
-	  HAL_Delay(500);
-
-	  if ( btn_trig==1 && pos <=4){
-		  if(flag_btn == 1){
-			  pos++;
-			  affiche_1(pos);
-			  btn_trig=0;
-		  }
-		  else if (flag_btn == 2){
-			  pos++;
-			  affiche_2(pos);
-			  btn_trig=0;
-		  }
-		  else if (flag_btn == 3){
-			  pos++;
-			  affiche_3(pos);
-			  btn_trig=0;
-		  }
-		  else if (flag_btn == 4){
-			  pos++;
-			  affiche_4(pos);
-			  btn_trig=0;
-		  }
-
-		  HAL_Delay(250);
-	  }
-	  else if (pos == 4){
-
-	  }
+void affiche_1(int pos){
+	MAX7219_DisplayChar(pos,'1');
 }
 
+void affiche_2(int pos){
+	MAX7219_DisplayChar(pos,'2');
+}
+
+void affiche_3(int pos){
+	MAX7219_DisplayChar(pos,'3');
+}
+
+void affiche_4(int pos){
+	MAX7219_DisplayChar(pos,'4');
+}
+
+char* code() {
+    HAL_Delay(300);
+    while (pos < 4) {
+        HAL_Delay(100);
+        if (btn_trig == 1) {
+            if (flag_btn == 1) {
+                pos++;
+                affiche_1(pos);
+                user_code[pos - 1] = '1';
+                btn_trig = 0;
+            } else if (flag_btn == 2) {
+                pos++;
+                affiche_2(pos);
+                user_code[pos - 1] = '2';
+                btn_trig = 0;
+            } else if (flag_btn == 3) {
+                pos++;
+                affiche_3(pos);
+                user_code[pos - 1] = '3';
+                btn_trig = 0;
+            } else if (flag_btn == 4) {
+                pos++;
+                affiche_4(pos);
+                user_code[pos - 1] = '4';
+                btn_trig = 0;
+            }
+            btn_trig = 0;
+            HAL_Delay(250);
+        }
+    }
+    for (uint32_t a = 0; a < 4; a++) final_code[a] = user_code[a];
+    pos=0;
+    return final_code;
+}
 void code_faux(){
 	MAX7219_Clear();
 	HAL_Delay(100);
 	MAX7219_DisplayChar(1,'N');
-	MAX7219_Clear();
-	HAL_Delay(100);
 	MAX7219_DisplayChar(2,'O');
-	MAX7219_Clear();
-	HAL_Delay(100);
 	MAX7219_DisplayChar(3,'N');
 }
 
-void affiche_1(uint32_t pos){
-	MAX7219_DisplayChar(pos,'1');
-}
-
-void affiche_2(uint32_t pos){
-	MAX7219_DisplayChar(pos,'2');
-}
-
-void affiche_3(uint32_t pos){
-	MAX7219_DisplayChar(pos,'3');
-}
-
-void affiche_4(uint32_t pos){
-	MAX7219_DisplayChar(pos,'4');
-}
-
+*/
 
 /* USER CODE END 0 */
 
@@ -325,21 +337,37 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  printf("Init system...\r\n");
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_SPI1_Init();
-  /* USER CODE BEGIN 2 */
 
-
+main_cpp();
+/*
 	 MAX7219_Init();
 	 MAX7219_DisplayTestStart();
 	 HAL_Delay(2000);
 	 MAX7219_DisplayTestStop();
-	MAX7219_Clear();
+	 MAX7219_Clear();
+
+	  ask_code(500);
+	  strcpy(root_code, code());
+	  printf("root code : %c \r\n",&root_code);
+	  ask_code(500);
+	  strcpy(user_code, code());
+	  printf("user code : %c \r\n",&user_code);
+	  HAL_Delay(4000);
+	  if (strcmp(user_code, root_code) == 0) {
+	      code_bon(500);
+	  } else {
+	      code_faux();
+	  }
+
+*/
+
 
 	 //main_cpp();
 	//aff_message("non", 300);
@@ -351,6 +379,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
 
 
 
@@ -532,6 +561,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == btn1_Pin) {
@@ -553,6 +583,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	  btn_trig=1;
   }
 }
+
 /* USER CODE END 4 */
 
 /**

@@ -56,8 +56,8 @@
 *********************************************************************************************************
 */
 //#include  <8051.h>                                    // microcontroller header file
+#include <max7219_Yncrea2.hpp>                                  // MAX7219 header file
 #include "main.h"
-#include "max7219_Yncrea2.h"                                  // MAX7219 header file
 
 //5PI_HandleTypeDef hspi1;
 //need to be defined in main.h
