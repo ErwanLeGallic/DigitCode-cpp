@@ -147,7 +147,7 @@ void code_bon(uint32_t MyDelay){
 	MAX7219_Clear();
 
 }
-/*
+
 void aff_message(const char* mot, uint32_t MyDelay) {
     size_t len_mot = strlen(mot);
     for (size_t i = 0; i < len_mot; i++) {

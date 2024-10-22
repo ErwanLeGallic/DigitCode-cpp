@@ -29,7 +29,7 @@ extern int btn_trig;
 
 
 
-void main_cpp(void){
+/*void main_cpp(void){
 	uint32_t startTick = HAL_GetTick();
 
     // creation objet user host et root
@@ -79,6 +79,61 @@ void main_cpp(void){
     while(1) {
 
     }
+}*/
+
+void main_cpp (void){
+	uint32_t startTick = HAL_GetTick();
+
+	int zero_code[4] = {0, 0, 0, 0};
+	User root(zero_code);
+	User host(zero_code);
+
+	Buzzer buzzer;
+	Moteur moteur;
+
+	Afficheur afficheur(500);
+	MAX7219_Init();
+	MAX7219_DisplayTestStart();
+	while ((HAL_GetTick() - startTick) < 2000) {}
+	MAX7219_DisplayTestStop();
+	MAX7219_Clear();
+
+	buzzer.SetState(ON);
+	moteur.SetState(ON);
+	htim3.Instance->ARR = 1024;
+
+	afficheur.ask_code(500);
+	strcpy(root.final_code, root.code());
+	printf("root code : %c%c%c%c \r\n", root.final_code[0], root.final_code[1], root.final_code[2], root.final_code[3]);
+
+	int attempt_count = 0;
+	bool correct_code = false;
+
+	while (attempt_count < 3) {
+
+	    afficheur.ask_code(500);
+	    strcpy(host.final_code, host.code());
+	    printf("user code : %c%c%c%c \r\n", host.final_code[0], host.final_code[1], host.final_code[2], host.final_code[3]);
+
+	    if (strcmp(root.final_code, host.final_code) == 0) {
+	        afficheur.code_bon(500);
+	        buzzer.Power();
+	        correct_code = true;
+	        break;
+	    } else {
+	        afficheur.code_faux(500);
+	        attempt_count++;
+	    }
+
+
+	    while ((HAL_GetTick() - startTick) < 3000) {}
+	}
+
+
+	if (!correct_code) {
+	    moteur.Power();
+	}
+
 }
 
 
