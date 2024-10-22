@@ -79,7 +79,8 @@ void play_buzzer_partition() {
 		const char *noteName = buzzer_partition[i];
 
 		buzzer_play_note_by_name(&htim3, notes, notes_size, noteName); // Utiliser notes_size ici
-		HAL_Delay(500);
+		uint32_t startTick = HAL_GetTick();
+		  	while ((HAL_GetTick() - startTick) < 100) {}
 	}
 }
 
