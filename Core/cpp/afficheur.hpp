@@ -8,16 +8,18 @@
 #ifndef CPP_AFFICHEUR_HPP_
 #define CPP_AFFICHEUR_HPP_
 #ifdef __cplusplus
+#include <stdint.h>
 
 class Afficheur{
 	public:
 
 	// attributs
-	int MyDelay;
+	uint32_t MyDelay;
+
 
 
 	// constructor
-    Afficheur(int MyDelay);
+    Afficheur(uint32_t MyDelay);
 
     //destructeur
     ~Afficheur();
@@ -25,9 +27,9 @@ class Afficheur{
 
 
 	// methodes
-	void code_bon(int MyDelay);
-	void ask_code(int MyDelay);
-	void code_faux(int MyDelay);
+	void code_bon(uint32_t MyDelay);
+	void ask_code(uint32_t MyDelay);
+	void code_faux(uint32_t MyDelay);
 };
 
 

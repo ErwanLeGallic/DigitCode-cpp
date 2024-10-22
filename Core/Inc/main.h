@@ -108,6 +108,5 @@ char* code();
 #ifdef __cplusplus
 }
 #endif
-#include <main.hpp>
 
 #endif /* __MAIN_H */

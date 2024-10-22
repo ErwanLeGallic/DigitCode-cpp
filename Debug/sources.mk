@@ -40,7 +40,7 @@ CPP_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
-Core/cpp/Display \
 Core/cpp \
+Core/cpp/Display \
 Drivers/STM32L1xx_HAL_Driver/Src \
 

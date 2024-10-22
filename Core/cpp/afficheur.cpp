@@ -15,72 +15,85 @@
 #include "afficheur.hpp"
 #include "Display/max7219_Yncrea2.hpp"
 
-Afficheur::Afficheur(int MyDelay) {
+Afficheur::Afficheur(uint32_t MyDelay) {
 }
 
-void Afficheur::code_bon(int MyDelay) {
+
+void Afficheur::code_bon(uint32_t MyDelay) {
+
 	MAX7219_Clear();
 	HAL_Delay(100);
 	MAX7219_DisplayChar(4, 'C');
-	HAL_Delay(MyDelay);
+	uint32_t startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(3, 'C');
 	MAX7219_DisplayChar(4, 'O');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(2, 'C');
 	MAX7219_DisplayChar(3, 'O');
 	MAX7219_DisplayChar(4, 'D');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'C');
 	MAX7219_DisplayChar(2, 'O');
 	MAX7219_DisplayChar(3, 'D');
 	MAX7219_DisplayChar(4, 'E');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'O');
 	MAX7219_DisplayChar(2, 'D');
 	MAX7219_DisplayChar(3, 'E');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'D');
 	MAX7219_DisplayChar(2, 'E');
 	MAX7219_DisplayChar(4, 'B');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'E');
 	MAX7219_DisplayChar(3, 'B');
 	MAX7219_DisplayChar(4, 'O');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(2, 'B');
 	MAX7219_DisplayChar(3, 'O');
 	MAX7219_DisplayChar(4, 'N');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'B');
 	MAX7219_DisplayChar(2, 'O');
 	MAX7219_DisplayChar(3, 'N');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'O');
 	MAX7219_DisplayChar(2, 'N');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'N');
-	HAL_Delay(MyDelay);
-	MAX7219_Clear();
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
+  	MAX7219_Clear();
 }
 /*
  void aff_message(const char* mot, uint32_t MyDelay) {
@@ -100,98 +113,114 @@ void Afficheur::code_bon(int MyDelay) {
 
  */
 
-void Afficheur::ask_code(int MyDelay) {
+void Afficheur::ask_code(uint32_t MyDelay) {
+
 	MAX7219_Clear();
 	HAL_Delay(100);
 	MAX7219_DisplayChar(4, 'E');
-	HAL_Delay(MyDelay);
+	uint32_t startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(3, 'E');
 	MAX7219_DisplayChar(4, 'N');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(2, 'E');
 	MAX7219_DisplayChar(3, 'N');
 	MAX7219_DisplayChar(4, 'T');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'E');
 	MAX7219_DisplayChar(2, 'N');
 	MAX7219_DisplayChar(3, 'T');
 	MAX7219_DisplayChar(4, 'R');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'N');
 	MAX7219_DisplayChar(2, 'T');
 	MAX7219_DisplayChar(3, 'R');
 	MAX7219_DisplayChar(4, 'E');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'T');
 	MAX7219_DisplayChar(2, 'R');
 	MAX7219_DisplayChar(3, 'E');
 	MAX7219_DisplayChar(4, 'R');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'R');
 	MAX7219_DisplayChar(2, 'E');
 	MAX7219_DisplayChar(3, 'R');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'E');
 	MAX7219_DisplayChar(2, 'R');
 	MAX7219_DisplayChar(4, 'C');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'R');
 	MAX7219_DisplayChar(3, 'C');
 	MAX7219_DisplayChar(4, 'O');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(2, 'C');
 	MAX7219_DisplayChar(3, 'O');
 	MAX7219_DisplayChar(4, 'D');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'C');
 	MAX7219_DisplayChar(2, 'O');
 	MAX7219_DisplayChar(3, 'D');
 	MAX7219_DisplayChar(4, 'E');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'O');
 	MAX7219_DisplayChar(2, 'D');
 	MAX7219_DisplayChar(3, 'E');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'D');
 	MAX7219_DisplayChar(2, 'E');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
 	MAX7219_DisplayChar(1, 'E');
-	HAL_Delay(MyDelay);
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 
 	MAX7219_Clear();
-	HAL_Delay(MyDelay);
-
+  	startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 }
 
-void Afficheur::code_faux(int MyDelay) {
+void Afficheur::code_faux(uint32_t MyDelay) {
 	MAX7219_Clear();
-	HAL_Delay(MyDelay);
+	uint32_t startTick = HAL_GetTick();
+  	while ((HAL_GetTick() - startTick) < MyDelay) {}
 	MAX7219_DisplayChar(1, 'N');
 	MAX7219_DisplayChar(2, 'O');
 	MAX7219_DisplayChar(3, 'N');
